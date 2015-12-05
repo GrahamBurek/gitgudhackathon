@@ -37,7 +37,7 @@ public class DisplayEventActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch(id) {
             case R.id.action_settings:
-                Intent intent = new Intent(this, eventSettingsFragment.class);
+                Intent intent = new Intent(this, eventSettings.class);
                 startActivity(intent);
                 return true;
         }
