@@ -54,6 +54,39 @@
         <item>-1</item>
     </string-array>
 
+<string name="pref_alarm_title">Alarm time before event</string>
+<string name="pref_alarm_description">Set an alarm a certain time before the managed event</string>
+<string-array name="pref_alarm_time">
+<item>No Alarm</item>
+<item>15 minutes before</item>
+<item>30 minutes before</item>
+<item>45 minutes before</item>
+<item>1 hour before</item>
+<item>1 hour 15 minutes before</item>
+<item>1 hour 30 minutes before</item>
+<item>1 hour 45 minutes before</item>
+<item>2 hours before</item>
+<item>2 hours 15 minutes</item>
+<item>2 hours 30 minutes</item>
+<item>2 hours 45 minutes before</item>
+<item>3 hours before</item>
+</string-array>
+<string-array name="pref_alarm_time_values">
+<item>0</item>
+<item>1</item>
+<item>2</item>
+<item>3</item>
+<item>4</item>
+<item>5</item>
+<item>6</item>
+<item>7</item>
+<item>8</item>
+<item>9</item>
+<item>10</item>
+<item>11</item>
+<item>12</item>
+</string-array>
+
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
 
