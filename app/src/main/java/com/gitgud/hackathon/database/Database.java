@@ -1,18 +1,18 @@
-package com.gitgud.hackathon;
-
+package com.gitgud.hackathon.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public final class MySQLHelper {
 
-    private MySQLHelper() {
-    }
+public final class Database {
 
-    ;
+    /* Factory database class, performs connections and queries the database.  */
+
+    private Database() {}
 
     public static void show_users(Connection con) throws SQLException {
 
@@ -34,12 +34,5 @@ public final class MySQLHelper {
                 statement.close();
             }
         }
-    }
-
-    public static Connection getConnection() throws SQLException {
-
-        Connection connection = null;
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/timeshare?user=root");
-        return connection;
     }
 }
