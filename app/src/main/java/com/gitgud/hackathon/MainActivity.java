@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
     ArrayList mNameList = new ArrayList();
+    public final static String EVENT_TITLE = "com.mycompany.myfirstapp.MESSAGE";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Intent intent = new Intent(this, DisplayEventActivity.class);
+        String title = (String) parent.getItemAtPosition(position);
+        intent.putExtra(EVENT_TITLE, title);
+        startActivity(intent);
 
         // Log the item's position and contents
         // to the console in Debug

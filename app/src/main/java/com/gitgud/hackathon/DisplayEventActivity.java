@@ -14,6 +14,7 @@ public class DisplayEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
+        setTitle(intent.getStringExtra(MainActivity.EVENT_TITLE));
         setContentView(R.layout.activity_display_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
