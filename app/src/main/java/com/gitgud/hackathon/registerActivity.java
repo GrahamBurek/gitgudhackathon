@@ -39,7 +39,7 @@ public class registerActivity extends AppCompatActivity {
             } catch (SQLException e) {
                 e.printStackTrace(System.out);
             }
-            return result;
+            return true;
         }
     }
     @Override

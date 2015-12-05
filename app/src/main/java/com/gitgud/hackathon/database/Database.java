@@ -28,8 +28,8 @@ public final class Database {
             statement = con.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
-                String username = rs.getString("username");
-                System.out.println(username + "\n");
+//                String username = rs.getString("username");
+//                System.out.println(username + "\n");
             }
 
         } catch (SQLException e) {
@@ -39,5 +39,6 @@ public final class Database {
                 statement.close();
             }
         }
+        return false;
     }
 }
