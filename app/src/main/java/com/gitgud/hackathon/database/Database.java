@@ -6,17 +6,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 
 public final class Database {
 
-    /* Factory database class, performs connections and queries the database.  */
-
     private Database() {}
 
-    public static void show_users(Connection con) throws SQLException {
+    public static Boolean register_user(Connection con, HashMap<String,String> form) throws SQLException {
 
-        String query = "SELECT * FROM timeshare.users";
+        String username = form.get("username");
+        String firstName = form.get("firstName");
+        String lastName = form.get("lastName");
+        String email = form.get("email");
+        String password = form.get("password");
+
+        String query = "INSERT INTO users (first_name,last_name,email,password) VALUES ()";
         Statement statement = null;
 
         try {

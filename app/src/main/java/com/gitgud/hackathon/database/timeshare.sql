@@ -4,7 +4,6 @@ USE timeshare;
 
 CREATE TABLE IF NOT EXISTS users(
 user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-username VARCHAR(40) UNIQUE NOT NULL,
 first_name VARCHAR(20) NOT NULL,
 last_name VARCHAR(40) NOT NULL,
 email VARCHAR(60) NOT NULL,
@@ -35,6 +34,11 @@ user_id INT UNSIGNED NOT NULL,
 event_id INT UNSIGNED,
 FOREIGN KEY (user_id) REFERENCES users(user_id),
 FOREIGN KEY (event_id) REFERENCES events(event_id)
+);
+
+INSERT INTO users(first_name,last_name,email,password) VALUES (
+
+
 );
 
 EXPLAIN users;
