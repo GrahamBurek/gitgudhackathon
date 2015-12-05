@@ -1,15 +1,26 @@
 package com.gitgud.hackathon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
+
+    ListView mainListView;
+    ArrayAdapter mArrayAdapter;
+    ArrayList mNameList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +29,16 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        mainListView = (ListView) findViewById(R.id.main_listview);
+        mNameList.add("Event 1");
+        mNameList.add("Event 2");
+        mArrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1,
+                mNameList);
+
+        mainListView.setAdapter(mArrayAdapter);
+        mainListView.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -48,5 +61,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void viewEvent(View view){
+        Intent intent = new Intent(this, DisplayEventActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        // Log the item's position and contents
+        // to the console in Debug
+        Log.d("omg android", position + ": " + mNameList.get(position));
     }
 }
