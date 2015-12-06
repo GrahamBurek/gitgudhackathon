@@ -2,28 +2,36 @@ package com.gitgud.hackathon;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class DisplayEventActivity extends AppCompatActivity {
-
+    public final static String EVENT_TITLE = "com.gitgud.hackathon.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        setTitle(intent.getStringExtra(MainActivity.EVENT_TITLE));
+        setTitle(intent.getStringExtra(DisplayEventActivity.EVENT_TITLE));
         setContentView(R.layout.activity_display_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.event_toolbar);
         setSupportActionBar(toolbar);
+        TextView event_title = (TextView) findViewById(R.id.event_title);
+        event_title.setText(intent.getStringExtra(DisplayEventActivity.EVENT_TITLE));
 
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_event, menu);
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            // Show the Up button in the action bar.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         return true;
     }
 
@@ -46,6 +54,10 @@ public class DisplayEventActivity extends AppCompatActivity {
     }
     public void viewEvent(View view){
         Intent intent = new Intent(this, userProfile.class);
+        startActivity(intent);
+    }
+    public void updateFollowStatus(View view){
+        Intent intent = new Intent(this, DisplayEventActivity.class);
         startActivity(intent);
     }
 
