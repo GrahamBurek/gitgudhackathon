@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
     ArrayList mNameList = new ArrayList();
-    public final static String EVENT_TITLE = "com.mycompany.myfirstapp.MESSAGE";
+    public final static String EVENT_TITLE = "com.gitgud.hackathon.MESSAGE";
 
 
     @Override
