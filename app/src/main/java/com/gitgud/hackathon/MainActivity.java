@@ -17,17 +17,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
 
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    ArrayList<String> result_list = new ArrayList<String>();
+    JSONObject mainObject;
     ArrayList<String> eventList = new ArrayList<String>();
     public final static String EVENT_TITLE = "com.gitgud.hackathon.MESSAGE";
 
@@ -143,10 +149,47 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         @Override
         protected void onPostExecute(String result){
-            String[] events = result.split(" ");
-            for(String event : events){
-            eventList.add(event);
-            mArrayAdapter.notifyDataSetChanged();
+            if(result != null){
+
+
+                JSONArray array = null;
+                try {
+                    array = new JSONArray(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 0; i < array.length(); i++) {
+                    int id = 0;
+                    String name = "";
+                    String time = "";
+                    JSONObject row = null;
+                    try {
+                        row = array.getJSONObject(i);
+                        id = row.getInt("event_id");
+                        name = row.getString("event_name");
+                        time = row.getString("time");
+
+                        eventList.add(name + " " + time);
+                        mArrayAdapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+//            String[] strings = result.split("VRIRV"); // Split result at spaces
+//
+//                for(Integer i=0; i<21; i++){
+//                    // Every sixth element is an id
+//                    if((i+7)%7==0){
+//                        ArrayList<String> fields = new ArrayList<>();
+//                        for(int j=1;j<i+7;j++){
+//                            fields.add(strings[j]);
+//                        }
+//                        result_hash.put(strings[i],fields);
+//                        eventList.add(result_hash.get(strings[i]).get(1) + result_hash.get("1").get(1));
+//                        mArrayAdapter.notifyDataSetChanged();
+//                    }
+//                }
             }
         }
 

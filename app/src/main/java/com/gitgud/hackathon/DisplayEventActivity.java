@@ -12,16 +12,17 @@ import android.widget.TextView;
 
 public class DisplayEventActivity extends AppCompatActivity {
     public final static String EVENT_TITLE = "com.gitgud.hackathon.MESSAGE";
+    Intent titleIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        setTitle(intent.getStringExtra(DisplayEventActivity.EVENT_TITLE));
+        Intent titleIntent = getIntent();
+        setTitle(titleIntent.getStringExtra(DisplayEventActivity.EVENT_TITLE));
         setContentView(R.layout.activity_display_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.event_toolbar);
         setSupportActionBar(toolbar);
         TextView event_title = (TextView) findViewById(R.id.event_title);
-        event_title.setText(intent.getStringExtra(DisplayEventActivity.EVENT_TITLE));
+        event_title.setText(titleIntent.getStringExtra(DisplayEventActivity.EVENT_TITLE));
 
     }
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,7 +53,7 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void viewEvent(View view){
+    public void viewUser(View view){
         Intent intent = new Intent(this, userProfile.class);
         startActivity(intent);
     }
