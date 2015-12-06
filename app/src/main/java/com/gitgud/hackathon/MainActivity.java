@@ -1,7 +1,9 @@
 package com.gitgud.hackathon;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,13 +17,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
 
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    ArrayList mNameList = new ArrayList();
+    ArrayList<String> result_list = new ArrayList<String>();
+    ArrayList<String> eventList = new ArrayList<String>();
     public final static String EVENT_TITLE = "com.gitgud.hackathon.MESSAGE";
 
 
@@ -33,11 +40,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setSupportActionBar(toolbar);
 
         mainListView = (ListView) findViewById(R.id.main_listview);
-        mNameList.add("Event 1");
-        mNameList.add("Event 2");
+        getEvents();
+
+
         mArrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,
-                mNameList);
+                eventList);
 
         mainListView.setAdapter(mArrayAdapter);
         mainListView.setOnItemClickListener(this);
@@ -85,6 +93,66 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // Log the item's position and contents
         // to the console in Debug
-        Log.d("omg android", position + ": " + mNameList.get(position));
+        Log.d("omg android", position + ": " + eventList.get(position));
+    }
+
+    private class GetEventsTask extends AsyncTask<String, Void, String> {
+
+        private Context context;
+
+        public GetEventsTask(Context context) {
+            this.context = context;
+        }
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            URL url;
+            HttpURLConnection urlConnection = null;
+            try {
+                url = new URL("http://php-grahamburek.rhcloud.com/get_events.php");
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream in = urlConnection.getInputStream();
+
+                InputStreamReader isw = new InputStreamReader(in);
+
+                int data = isw.read();
+                StringBuilder builder = new StringBuilder();
+                while (data != -1) {
+                    char current = (char) data;
+                    data = isw.read();
+                    builder.append(current);
+                }
+                return builder.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    urlConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace(); //If you want further info on failure...
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            String[] events = result.split(" ");
+            for(String event : events){
+            eventList.add(event);
+            mArrayAdapter.notifyDataSetChanged();
+            }
+        }
+
+    }
+
+    public void getEvents(){
+        new GetEventsTask(this).execute();
     }
 }
