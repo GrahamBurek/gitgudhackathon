@@ -84,8 +84,8 @@
 <item>10</item>
 <item>11</item>
 </string-array>
-<string name="pref_title_override_alarm">Override Managed Alarm</string>
-    <string name="pref_description_override_alarm">If event is moved or cancelled, alarm will still be set to the same time.</string>
+<string name="pref_title_override_alarm">Ignore Scheduling Changes</string>
+    <string name="pref_description_override_alarm">If event is moved or cancelled, alarm will go off anyway at the original time</string>
     <string name="pref_title_confirm_alarm">Confirm Alarm</string>
     <string name="pref_description_confirm_alarm">Confirm the alarm by asking if you want it prior to it going off.</string>
     <!-- Example settings for Data & Sync -->
@@ -117,7 +117,7 @@
         <item>9</item>
     </string-array>
 
-
+<string name="pref_title_changes">Event Change Notifications</string>
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
         <item>15 minutes</item>
