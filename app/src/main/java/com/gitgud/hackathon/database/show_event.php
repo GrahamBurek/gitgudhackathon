@@ -4,7 +4,7 @@ require('connect_db.php');
 
 $id = $_GET['id'];
 
-$query = 'SELECT * FROM events WHERE event_id=' . $id;
+$query = 'SELECT * FROM events JOIN users ON events.owner_id = users.user_id WHERE event_id=' . $id;
 
 $result = mysqli_query($dbc , $query);
 

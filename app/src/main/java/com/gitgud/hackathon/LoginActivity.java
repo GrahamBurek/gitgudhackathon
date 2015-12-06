@@ -140,5 +140,9 @@ public class LoginActivity extends AppCompatActivity {
 
         new LoginUserTask(this).execute(username,password);
     }
+    public void go_register(View v){
+        Intent intent = new Intent(this, registerActivity.class);
+        startActivity(intent);
 
+    }
 }

@@ -55,11 +55,47 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 			$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 			echo "Login successful " . $row['user_id'];
 
-
 		}
 		mysqli_free_result($result);
 
+		}
 	}
-}
+
+	if ($operation == "changeFollowStatus") {
+
+		$username = $_GET['username'];
+		$eventID = $_GET['eventID'];
+
+		$query = 'SELECT * FROM follows JOIN users on follows.user_id=users.user_id WHERE users.user_id = follows.user_id AND follows.event_id=' . $eventID;
+
+
+		$result = mysqli_query($dbc , $query);
+
+			if (mysqli_num_rows( $result ) == 0 ){
+				$getID = 'SELECT user_id FROM users WHERE username = ' . $username;
+				$result2 = mysqli_query($dbc, $getID);
+				$row = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+				$ID = $row['user_id'];
+				mysqli_free_result($result2);
+
+				$createQuery = 'INSERT INTO follows VALUES (' . $ID .',' . $eventID .')';
+				$result3 = mysqli_query($dbc,$createQuery);
+				mysqli_free_result($result3);
+				echo "Now following!";
+			} else {
+				$getID = 'SELECT user_id FROM users WHERE username = "' . $username . '"';
+				$result2 = mysqli_query($dbc, $getID);
+				$row = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+				$ID = $row['user_id'];
+				mysqli_free_result($result2);
+				$query = "DELETE FROM follows WHERE user_id=" . $ID . " AND event_id=" . $eventID;
+				echo $query;
+				mysqli_query($dbc, $query);
+				echo "No longer following.";
+				
+			}
+
+
+	}
 }
  ?>

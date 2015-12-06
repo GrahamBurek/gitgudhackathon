@@ -23,7 +23,9 @@ start_date DATE NOT NULL,
 end_date DATE NOT NULL,
 repeat_interval INT,
 time TIME NOT NULL,
-PRIMARY KEY(event_id)
+owner_id INT UNSIGNED NOT NULL,
+PRIMARY KEY(event_id),
+FOREIGN KEY (owner_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE IF NOT EXISTS follows(
@@ -41,39 +43,59 @@ FOREIGN KEY (event_id) REFERENCES events(event_id)
 );
 
 INSERT INTO users (username, first_name, last_name, email, password) VALUES (
-"grahamb",
+"graham",
 "Graham",
 "Burek",
 "graham.burek1@gmail.com",
 "password"
+),(
+"liam",
+"Liam",
+"Harwood",
+"liam.harwood1@marist.edu",
+"password"
+),(
+"maxim",
+"Maxim",
+"Vitkin",
+"maxim.vitkin1@marist.edu",
+"password"
 );
 
-INSERT INTO events (event_name, location, start_date, end_date, repeat_interval, time) VALUES (
-"poop",
-"poopville",
-'1969-02-15',
-'1922-21-12',
-"21",
-'03:30:15'
+
+
+INSERT INTO events (event_name, location, start_date, end_date, repeat_interval, time,owner_id) VALUES (
+"Block Party",
+"Poughkeepsie,NY",
+'2015-12-6',
+'2015-12-6',
+"0",
+'05:30:00',
+1
 );
 
-INSERT INTO events (event_name, location, start_date, end_date, repeat_interval, time) VALUES (
-"dota",
-"the jungle",
-'2000-5-05',
-'1822-11-14',
-"420",
-'23:00:00'
+INSERT INTO events (event_name, location, start_date, end_date, repeat_interval, time,owner_id) VALUES (
+"Calculus II",
+"HC 2023",
+'2015-12-07',
+'2015-12-07',
+"0",
+'13:00:00',
+2
 );
 
-INSERT INTO events (event_name, location, start_date, end_date, repeat_interval, time) VALUES (
-"smorc",
-"hunterville",
-'1299-01-21',
-'1772-2-22',
-"666",
-'15:00:00'
+INSERT INTO events (event_name, location, start_date, end_date, repeat_interval, time,owner_id) VALUES (
+"Work in Office",
+"Staten Island, NY",
+'2015-12-8',
+'2015-12-8',
+"20",
+'15:00:00',
+3
 );
+
+
+INSERT INTO follows (user_id, event_id) VALUES (1,2),(2,3),(3,1),(1,3),(2,1),(3,2);
 
 
 EXPLAIN users;
