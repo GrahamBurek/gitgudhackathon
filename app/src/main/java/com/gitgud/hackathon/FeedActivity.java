@@ -41,6 +41,7 @@ public class FeedActivity extends AppCompatActivity {
                 feed_list);
 
         feed_view.setAdapter(feed_adapter);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
     @Override

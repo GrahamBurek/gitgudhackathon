@@ -17,8 +17,10 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gitgud.hackathon.database.checkLogin;
+import com.gitgud.hackathon.database.formatTime;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,34 +50,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        mainListView = (ListView) findViewById(R.id.main_listview);
-//        getEvents();
+        mainListView = (ListView) findViewById(R.id.main_listview);
+        getEvents();
+
+
+        mArrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1,
+                eventList);
+
+        mainListView.setAdapter(mArrayAdapter);
+
+
+//        Schedule Schedule_data[] = new Schedule[]
+//                {
+//                        //TODO integrate database
+//                        new Schedule("Calc II","8:00"),
+//                        new Schedule("Calc II3","82:00"),
+//                        new Schedule("Calc II4","83:00"),
+//                        new Schedule("Calc II6","84:00")
+//                };
 //
+//        ScheduleAdapter adapter = new ScheduleAdapter(this,
+//                R.layout.row_event, Schedule_data);
 //
-//        mArrayAdapter = new ArrayAdapter(this,
-//                android.R.layout.simple_list_item_1,
-//                eventList);
-//
-//        mainListView.setAdapter(mArrayAdapter);
-
-
-        Schedule Schedule_data[] = new Schedule[]
-                {
-                        //TODO integrate database
-                        new Schedule("Calc II","8:00"),
-                        new Schedule("Calc II3","82:00"),
-                        new Schedule("Calc II4","83:00"),
-                        new Schedule("Calc II6","84:00")
-                };
-
-        ScheduleAdapter adapter = new ScheduleAdapter(this,
-                R.layout.row_event, Schedule_data);
-
-    }
+//    }
 
         mainListView = (ListView)findViewById(R.id.main_listview);
 
-        mainListView.setAdapter(adapter);
+        mainListView.setAdapter(mArrayAdapter);
         mainListView.setOnItemClickListener(this);
     }
     @Override
@@ -117,11 +119,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Intent intent;
         //noinspection SimplifiableIfStatement
         switch(id) {
             case R.id.action_new_event:
-                Intent intent = new Intent(this, eventCreator.class);
+                intent = new Intent(this, eventCreator.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_feed:
+                intent = new Intent(this, FeedActivity.class);
                 startActivity(intent);
                 return true;
         }
