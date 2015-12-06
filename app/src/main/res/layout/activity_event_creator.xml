@@ -21,7 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_event_creater" />
+    <include layout="@layout/content_event_creator" />
 
 
 
