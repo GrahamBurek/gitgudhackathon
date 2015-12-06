@@ -44,7 +44,15 @@
         <activity
             android:name=".registerActivity"
             android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".eventSettings"
+            android:label="@string/title_activity_event_settings"
+            android:parentActivityName=".DisplayEventActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gitgud.hackathon.DisplayEventActivity" />
+        </activity>
     </application>
 
 </manifest>
