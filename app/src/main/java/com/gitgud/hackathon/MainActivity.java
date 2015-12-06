@@ -20,19 +20,25 @@ import android.widget.ListView;
 
 import com.gitgud.hackathon.database.checkLogin;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
 
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    ArrayList<String> result_list = new ArrayList<String>();
+    JSONObject mainObject;
     ArrayList<String> eventList = new ArrayList<String>();
-    public final static String EVENT_TITLE = "com.gitgud.hackathon.MESSAGE";
+    ArrayList<Integer> idList = new ArrayList<Integer>();
 
 
     @Override
@@ -91,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //noinspection SimplifiableIfStatement
         switch(id) {
-            case R.id.action_settings:
-                Intent intent = new Intent(this, DisplayEventActivity.class);
+            case R.id.action_new_event:
+                Intent intent = new Intent(this, eventCreator.class);
                 startActivity(intent);
                 return true;
         }
@@ -109,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Intent intent = new Intent(this, DisplayEventActivity.class);
-        String title = (String) parent.getItemAtPosition(position);
-        intent.putExtra(EVENT_TITLE, title);
+        int eventId = idList.get(position);
+        intent.putExtra("id", eventId);
         startActivity(intent);
 
         // Log the item's position and contents
@@ -165,10 +171,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         @Override
         protected void onPostExecute(String result){
-            String[] events = result.split(" ");
-            for(String event : events){
-            eventList.add(event);
-            mArrayAdapter.notifyDataSetChanged();
+            if(result != null){
+
+
+                JSONArray array = null;
+                try {
+                    array = new JSONArray(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 0; i < array.length(); i++) {
+                    int id = 0;
+                    String name = "";
+                    String time = "";
+                    JSONObject row = null;
+                    try {
+                        row = array.getJSONObject(i);
+                        id = row.getInt("event_id");
+                        name = row.getString("event_name");
+                        time = row.getString("time");
+
+                        eventList.add(name + " " + time);
+                        idList.add(id);
+                        mArrayAdapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         }
 

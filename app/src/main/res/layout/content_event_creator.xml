@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="?android:attr/actionBarSize"
+    tools:targetApi="honeycomb">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".eventCreator"
+    tools:showIn="@layout/activity_event_creator"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/event_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/prompt_event_name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:focusable="true"/>
+    </android.support.design.widget.TextInputLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        tools:targetApi="ice_cream_sandwich" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Date"/>
+    <DatePicker
+        android:layout_gravity="center"
+        android:id="@+id/event_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/from_date"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Time"/>
+    <TimePicker
+        android:id="@+id/event_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:timePickerMode="spinner"
+        android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Date"/>
+    <DatePicker
+        android:layout_gravity="center"
+        android:id="@+id/event_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/from_date"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Time"/>
+    <TimePicker
+        android:id="@+id/event_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:timePickerMode="spinner"
+        android:layout_gravity="center"/>
+    <Switch
+        android:id="@+id/create_event_repeat_weekly"
+        android:layout_width="match_parent"
+        android:text="Repeat Every Week"
+        android:layout_height="wrap_content"
+        />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="10dp" />
+    <EditText
+        android:id="@+id/new_event_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="7"
+        android:inputType="textMultiLine"
+        android:hint="Description"
+        />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        tools:targetApi="ice_cream_sandwich" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="Create Event"
+        android:background="#990000"
+        android:textColor="@color/white"
+        />
+
+
+</LinearLayout>
+    </ScrollView>
