@@ -11,18 +11,19 @@ import android.view.View;
 import android.widget.TextView;
 
 public class DisplayEventActivity extends AppCompatActivity {
+    String event_name = "";
     public final static String EVENT_TITLE = "com.gitgud.hackathon.MESSAGE";
-    Intent titleIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent titleIntent = getIntent();
-        setTitle(titleIntent.getStringExtra(DisplayEventActivity.EVENT_TITLE));
+        Intent intent = getIntent();
+        event_name = intent.getStringExtra(DisplayEventActivity.EVENT_TITLE);
+        setTitle(event_name);
         setContentView(R.layout.activity_display_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.event_toolbar);
         setSupportActionBar(toolbar);
         TextView event_title = (TextView) findViewById(R.id.event_title);
-        event_title.setText(titleIntent.getStringExtra(DisplayEventActivity.EVENT_TITLE));
+        event_title.setText(event_name);
 
     }
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,7 +54,7 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void viewUser(View view){
+    public void viewEvent(View view){
         Intent intent = new Intent(this, userProfile.class);
         startActivity(intent);
     }
