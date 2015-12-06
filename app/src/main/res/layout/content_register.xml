@@ -12,6 +12,12 @@
     tools:context="com.gitgud.hackathon.registerActivity"
     tools:showIn="@layout/activity_register"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/query_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sample text"/>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

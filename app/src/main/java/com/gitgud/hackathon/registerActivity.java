@@ -25,9 +25,9 @@ import java.util.HashMap;
 public class registerActivity extends AppCompatActivity {
 
     private EditText usernameField, firstNameField,lastNameField,emailField,passwordField,repeatPasswordField;
-    private Button submitButton;
+    private TextView query_message;
 
-    private class RegisterUserTask extends AsyncTask<String, Void, Boolean> {
+    private class RegisterUserTask extends AsyncTask<String, Void, String> {
 
         private Context context;
 
@@ -40,12 +40,13 @@ public class registerActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Boolean doInBackground(String... args) {
+        protected String doInBackground(String... args) {
             URL url;
             HttpURLConnection urlConnection = null;
             try {
-                url = new URL("http://php-grahamburek.rhcloud.com/index.php?username=" + args[0]);
-                //index.php?username=" + args[0] + "&firstName=" + args[1] + "&lastName=" + args[2] + "&email=" + args[3] + "&password=" + args[4]
+                url = new URL("http://php-grahamburek.rhcloud.com/index.php?operation=" + "register" + "&username="
+                        + args[0]+ "&firstName=" + args[1] + "&lastName=" + args[2] + "&email=" + args[3] + "&password="
+                        + args[4] + "&passwordRepeat=" + args[5]);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
 
@@ -54,11 +55,13 @@ public class registerActivity extends AppCompatActivity {
                 InputStreamReader isw = new InputStreamReader(in);
 
                 int data = isw.read();
+                StringBuilder builder = new StringBuilder();
                 while (data != -1) {
                     char current = (char) data;
                     data = isw.read();
-                    System.out.print(current);
+                     builder.append(current);
                 }
+                return builder.toString();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -68,12 +71,12 @@ public class registerActivity extends AppCompatActivity {
                     e.printStackTrace(); //If you want further info on failure...
                 }
             }
-            return true;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(Boolean result){
-
+        protected void onPostExecute(String result){
+            query_message.setText(result);
         }
 
     }
@@ -84,6 +87,7 @@ public class registerActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        query_message = (TextView) findViewById(R.id.query_message);
         usernameField = (EditText) findViewById(R.id.username);
         firstNameField = (EditText) findViewById(R.id.firstName);
         lastNameField = (EditText) findViewById(R.id.lastName);
@@ -99,8 +103,9 @@ public class registerActivity extends AppCompatActivity {
         String lastName = lastNameField.getText().toString();
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
+        String passwordRepeat = repeatPasswordField.getText().toString();
 
-        new RegisterUserTask(this).execute(username,firstName,lastName,email,password);
+        new RegisterUserTask(this).execute(username,firstName,lastName,email,password,passwordRepeat);
 
     }
 
