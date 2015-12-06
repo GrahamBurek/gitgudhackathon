@@ -1,5 +1,6 @@
 package com.gitgud.hackathon;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,38 +10,72 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.gitgud.hackathon.database.Database;
-import com.gitgud.hackathon.database.MySQLHelper;
-
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
+
 
 public class registerActivity extends AppCompatActivity {
 
-    private EditText username;
-    private EditText firstName;
-    private EditText lastName;
-    private EditText email;
-    private EditText password;
-    private EditText repeatPassword;
-    private HashMap<String, String> registerForm;
+    private EditText usernameField, firstNameField,lastNameField,emailField,passwordField,repeatPasswordField;
     private Button submitButton;
 
-    private class registerUser extends AsyncTask<HashMap<String,String>, Void, Boolean> {
+    private class RegisterUserTask extends AsyncTask<String, Void, Boolean> {
+
+        private Context context;
+
+        public RegisterUserTask(Context context) {
+            this.context = context;
+        }
+
+        protected void onPreExecute() {
+
+        }
 
         @Override
-        protected Boolean doInBackground(HashMap<String,String>... form) {
-
-
+        protected Boolean doInBackground(String... args) {
+            URL url;
+            HttpURLConnection urlConnection = null;
             try {
-                Boolean result = Database.register_user(MySQLHelper.getConnection(), form[0]);
-            } catch (SQLException e) {
-                e.printStackTrace(System.out);
+                url = new URL("http://php-grahamburek.rhcloud.com/index.php?username=" + args[0]);
+                //index.php?username=" + args[0] + "&firstName=" + args[1] + "&lastName=" + args[2] + "&email=" + args[3] + "&password=" + args[4]
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream in = urlConnection.getInputStream();
+
+                InputStreamReader isw = new InputStreamReader(in);
+
+                int data = isw.read();
+                while (data != -1) {
+                    char current = (char) data;
+                    data = isw.read();
+                    System.out.print(current);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    urlConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace(); //If you want further info on failure...
+                }
             }
-            return result;
+            return true;
         }
+
+        @Override
+        protected void onPostExecute(Boolean result){
+
+        }
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,37 +84,27 @@ public class registerActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        usernameField = (EditText) findViewById(R.id.username);
+        firstNameField = (EditText) findViewById(R.id.firstName);
+        lastNameField = (EditText) findViewById(R.id.lastName);
+        emailField = (EditText) findViewById(R.id.email);
+        passwordField = (EditText) findViewById(R.id.password);
+        repeatPasswordField = (EditText) findViewById(R.id.repeatPassword);
 
-        submitButton = (Button) findViewById(R.id.register_button);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerForm = new HashMap<String, String>();
-                username = (EditText) findViewById(R.id.username);
-                firstName =  (EditText)findViewById(R.id.firstName);
-                lastName = (EditText) findViewById(R.id.lastName);
-                email = (EditText) findViewById(R.id.email);
-                password = (EditText) findViewById(R.id.password);
-                repeatPassword = (EditText) findViewById(R.id.repeatPassword);
-                registerForm.put("firstName", firstName.getText().toString());
-                registerForm.put("lastName", lastName.getText().toString());
-                registerForm.put("email", email.getText().toString());
-                registerForm.put("password", password.getText().toString());
-                registerForm.put("repeatPassword", repeatPassword.getText().toString());
-                registerForm.put("username", username.getText().toString());
-            }
-        });
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
-}
+    public void register(View view){
+        String username = usernameField.getText().toString();
+        String firstName = firstNameField.getText().toString();
+        String lastName = lastNameField.getText().toString();
+        String email = emailField.getText().toString();
+        String password = passwordField.getText().toString();
+
+        new RegisterUserTask(this).execute(username,firstName,lastName,email,password);
+
+    }
+
+
+
+
+    }

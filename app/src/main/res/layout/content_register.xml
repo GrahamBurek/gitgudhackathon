@@ -124,5 +124,6 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="@string/action_register"
+        android:onClick="register"
         android:textStyle="bold" /></LinearLayout>
 </LinearLayout>
