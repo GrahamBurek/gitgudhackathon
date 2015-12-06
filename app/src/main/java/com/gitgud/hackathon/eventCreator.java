@@ -22,10 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-
-public class eventCreater extends AppCompatActivity {
-
-
 public class eventCreator extends AppCompatActivity {
 
     @Override
