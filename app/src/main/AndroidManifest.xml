@@ -72,9 +72,14 @@
                 android:value="com.gitgud.hackathon.MainActivity" />
         </activity>
         <activity
-            android:name=".ScheduleActivity"
-            android:label="@string/title_activity_schedule"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".EditEventActivity"
+            android:label="@string/title_activity_edit_event"
+            android:parentActivityName=".DisplayEventActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gitgud.hackathon.DisplayEventActivity" />
+        </activity>
     </application>
 
 </manifest>
