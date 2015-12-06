@@ -4,7 +4,7 @@
     <string name="event">Event</string>
     <string name="title_activity_display_event">Display Event</string>
     <string name="title_activity_user_profile">userProfile</string>
-    <string name="greeting">sup nigga</string>
+    <string name="greeting">Hello hey</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -54,44 +54,44 @@
         <item>-1</item>
     </string-array>
 
-<string name="pref_alarm_title">How much time before the event</string>
-<string name="pref_alarm_description">Set an alarm a certain time before the managed event</string>
-<string-array name="pref_alarm_time">
-<item>15 minutes before</item>
-<item>30 minutes before</item>
-<item>45 minutes before</item>
-<item>1 hour before</item>
-<item>1 hour 15 minutes before</item>
-<item>1 hour 30 minutes before</item>
-<item>1 hour 45 minutes before</item>
-<item>2 hours before</item>
-<item>2 hours 15 minutes</item>
-<item>2 hours 30 minutes</item>
-<item>2 hours 45 minutes before</item>
-<item>3 hours before</item>
-</string-array>
-<string-array name="pref_alarm_time_values">
-<item>0</item>
-<item>1</item>
-<item>2</item>
-<item>3</item>
-<item>4</item>
-<item>5</item>
-<item>6</item>
-<item>7</item>
-<item>8</item>
-<item>9</item>
-<item>10</item>
-<item>11</item>
-</string-array>
-<string name="pref_title_override_alarm">Ignore Scheduling Changes</string>
+    <string name="pref_alarm_title">How much time before the event</string>
+    <string name="pref_alarm_description">Set an alarm a certain time before the managed event</string>
+    <string-array name="pref_alarm_time">
+        <item>15 minutes before</item>
+        <item>30 minutes before</item>
+        <item>45 minutes before</item>
+        <item>1 hour before</item>
+        <item>1 hour 15 minutes before</item>
+        <item>1 hour 30 minutes before</item>
+        <item>1 hour 45 minutes before</item>
+        <item>2 hours before</item>
+        <item>2 hours 15 minutes</item>
+        <item>2 hours 30 minutes</item>
+        <item>2 hours 45 minutes before</item>
+        <item>3 hours before</item>
+    </string-array>
+    <string-array name="pref_alarm_time_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </string-array>
+    <string name="pref_title_override_alarm">Ignore Scheduling Changes</string>
     <string name="pref_description_override_alarm">If event is moved or cancelled, alarm will go off anyway at the original time</string>
     <string name="pref_title_confirm_alarm">Confirm Alarm</string>
     <string name="pref_description_confirm_alarm">Confirm the alarm by asking if you want it prior to it going off.</string>
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
 
-<string name="pref_confirm_alarm_picker_title">When to confirm alarm</string>
+    <string name="pref_confirm_alarm_picker_title">When to confirm alarm</string>
     <string-array name="pref_confirm_alarm_list">
         <item>15 minutes before</item>
         <item>30 minutes before</item>
@@ -117,7 +117,7 @@
         <item>9</item>
     </string-array>
 
-<string name="pref_title_changes">Event Change Notifications</string>
+    <string name="pref_title_changes">Event Change Notifications</string>
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
         <item>15 minutes</item>
@@ -159,6 +159,7 @@
     <item name="darkgreen" type="color">#FF669900</item>
     <item name="darkorange" type="color">#FFFF8800</item>
     <item name="darkred" type="color">#FFCC0000</item>
+    <item name="white" type="color">#FFFFFFFF</item>
 
     <integer-array name="androidcolors">
         <item>@color/blue</item>
@@ -172,4 +173,6 @@
         <item>@color/darkorange</item>
         <item>@color/darkred</item>
     </integer-array>
+    <string name="title_activity_event_creater">eventCreater</string>
+    <string name="prompt_event_name">Event Name</string>
 </resources>
