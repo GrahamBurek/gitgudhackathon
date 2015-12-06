@@ -29,10 +29,9 @@ public class registerActivity extends AppCompatActivity {
 
     private class RegisterUserTask extends AsyncTask<String, Void, String> {
 
-        private Context context;
+
 
         public RegisterUserTask(Context context) {
-            this.context = context;
         }
 
         protected void onPreExecute() {
