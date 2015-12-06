@@ -175,4 +175,8 @@
     </integer-array>
     <string name="title_activity_event_creater">eventCreater</string>
     <string name="prompt_event_name">Event Name</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
 </resources>
