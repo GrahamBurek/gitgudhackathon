@@ -51,6 +51,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gitgud.hackathon.DisplayEventActivity" />
         </activity>
+        <activity
+            android:name=".FeedActivity"
+            android:label="@string/title_activity_feed"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gitgud.hackathon.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
