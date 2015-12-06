@@ -1,10 +1,13 @@
 package com.gitgud.hackathon.database;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.gitgud.hackathon.LoginActivity;
+import com.gitgud.hackathon.MainActivity;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -65,6 +68,7 @@ public class checkLogin extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result){
         if(result.substring(0,16).equals("Login successful")){
+
 
     } else {
             Intent intent = new Intent(activity, LoginActivity.class);
