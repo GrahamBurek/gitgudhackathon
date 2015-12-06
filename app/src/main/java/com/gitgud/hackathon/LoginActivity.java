@@ -3,7 +3,9 @@ package com.gitgud.hackathon;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -60,9 +62,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private class LoginUserTask extends AsyncTask<String, Void, String> {
 
+        Activity activity;
 
-
-        public LoginUserTask(Context context) {
+        public LoginUserTask(Activity activity) {
+            this.activity = activity;
         }
 
         protected void onPreExecute() {
@@ -106,10 +109,15 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result){
             String[] strings = result.split(" ");
-            SharedPreferences sharedPreferences = getSharedPreferences(checkLogin.LOGIN_PREFS,MODE_PRIVATE);
-            sharedPreferences.edit().putString("username", username).commit();
-            sharedPreferences.edit().putString("password", password).commit();
-            query_message.setText(strings[0] + " " + strings[1]);
+            if (strings[1].equals("successful")) {
+                SharedPreferences sharedPreferences = getSharedPreferences(checkLogin.LOGIN_PREFS, MODE_PRIVATE);
+                sharedPreferences.edit().putString("username", username).commit();
+                sharedPreferences.edit().putString("password", password).commit();
+                query_message.setText(strings[0] + " " + strings[1]);
+                Intent intent = new Intent(activity, MainActivity.class);
+                startActivity(intent);
+            }
+            query_message.setText(result);
 
         }
 

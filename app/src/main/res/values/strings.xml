@@ -173,7 +173,7 @@
         <item>@color/darkorange</item>
         <item>@color/darkred</item>
     </integer-array>
-    <string name="title_activity_event_creater">eventCreater</string>
+    <string name="title_activity_event_creater">Event Creator</string>
     <string name="prompt_event_name">Event Name</string>
     <string name="hello_world">Hello world!</string>
 

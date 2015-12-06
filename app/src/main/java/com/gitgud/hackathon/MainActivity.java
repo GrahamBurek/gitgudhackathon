@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.gitgud.hackathon.database.checkLogin;
+import com.gitgud.hackathon.database.formatTime;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +29,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,12 +57,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         getEvents();
 
 
-        mArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1,
-                eventList);
 
-        mainListView.setAdapter(mArrayAdapter);
-        mainListView.setOnItemClickListener(this);
 
     }
 
@@ -140,8 +140,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         protected String doInBackground(String... args) {
             URL url;
             HttpURLConnection urlConnection = null;
+            SharedPreferences sp = getSharedPreferences(checkLogin.LOGIN_PREFS, MODE_PRIVATE);
+            String username = sp.getString("username", "nothing");
             try {
-                url = new URL("http://php-grahamburek.rhcloud.com/get_events.php");
+                url = new URL("http://php-grahamburek.rhcloud.com/get_events.php?operation=follower&username=" + username);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
 
@@ -184,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     int id = 0;
                     String name = "";
                     String time = "";
+                    String startDate = "";
                     JSONObject row = null;
                     try {
                         row = array.getJSONObject(i);
@@ -191,9 +194,99 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         name = row.getString("event_name");
                         time = row.getString("time");
 
+                        time = formatTime.convertFromMilitary(time);
+
                         eventList.add(name + " " + time);
+                        //GregorianCalendar gc = new GregorianCalendar();
+                        //GregorianCalendar gc = new GregorianCalendar();
                         idList.add(id);
-                        mArrayAdapter.notifyDataSetChanged();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    private class GetEventsTaskOwned extends AsyncTask<String, Void, String> {
+
+        private Context context;
+
+        public GetEventsTaskOwned(Context context) {
+            this.context = context;
+        }
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            URL url;
+            HttpURLConnection urlConnection = null;
+            SharedPreferences sp = getSharedPreferences(checkLogin.LOGIN_PREFS, MODE_PRIVATE);
+            String username = sp.getString("username", "nothing");
+            try {
+                url = new URL("http://php-grahamburek.rhcloud.com/get_events.php?operation=owner&username=" + username);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream in = urlConnection.getInputStream();
+
+                InputStreamReader isw = new InputStreamReader(in);
+
+                int data = isw.read();
+                StringBuilder builder = new StringBuilder();
+                while (data != -1) {
+                    char current = (char) data;
+                    data = isw.read();
+                    builder.append(current);
+                }
+                return builder.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    urlConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace(); //If you want further info on failure...
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            if(result != null){
+
+
+                JSONArray array = null;
+                try {
+                    array = new JSONArray(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 0; i < array.length(); i++) {
+                    int id = 0;
+                    String name = "";
+                    String time = "";
+                    String startDate = "";
+                    JSONObject row = null;
+                    try {
+                        row = array.getJSONObject(i);
+                        id = row.getInt("event_id");
+                        name = row.getString("event_name");
+                        time = row.getString("time");
+                        time = formatTime.convertFromMilitary(time);
+
+
+                        eventList.add(name + " " + time);
+                        //GregorianCalendar gc = new GregorianCalendar();
+                        //GregorianCalendar gc = new GregorianCalendar();
+                        idList.add(id);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -206,5 +299,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void getEvents(){
         new GetEventsTask(this).execute();
+        new GetEventsTaskOwned(this).execute();
+
+        mArrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1,
+                eventList);
+
+        mainListView.setAdapter(mArrayAdapter);
+        mainListView.setOnItemClickListener(this);
+        mArrayAdapter.notifyDataSetChanged();
     }
+
 }
