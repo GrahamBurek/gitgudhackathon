@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayAdapter mArrayAdapter;
     JSONObject mainObject;
     ArrayList<String> eventList = new ArrayList<String>();
-    public final static String EVENT_TITLE = "com.gitgud.hackathon.MESSAGE";
+    ArrayList<Integer> idList = new ArrayList<Integer>();
 
 
     @Override
@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Intent intent = new Intent(this, DisplayEventActivity.class);
-        String title = (String) parent.getItemAtPosition(position);
-        intent.putExtra(EVENT_TITLE, title);
+        int eventId = idList.get(position);
+        intent.putExtra("id", eventId);
         startActivity(intent);
 
         // Log the item's position and contents
@@ -170,26 +170,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         time = row.getString("time");
 
                         eventList.add(name + " " + time);
+                        idList.add(id);
                         mArrayAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-//            String[] strings = result.split("VRIRV"); // Split result at spaces
-//
-//                for(Integer i=0; i<21; i++){
-//                    // Every sixth element is an id
-//                    if((i+7)%7==0){
-//                        ArrayList<String> fields = new ArrayList<>();
-//                        for(int j=1;j<i+7;j++){
-//                            fields.add(strings[j]);
-//                        }
-//                        result_hash.put(strings[i],fields);
-//                        eventList.add(result_hash.get(strings[i]).get(1) + result_hash.get("1").get(1));
-//                        mArrayAdapter.notifyDataSetChanged();
-//                    }
-//                }
             }
         }
 

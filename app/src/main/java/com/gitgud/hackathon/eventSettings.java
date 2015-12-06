@@ -3,6 +3,7 @@ package com.gitgud.hackathon;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -35,6 +36,7 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class eventSettings extends AppCompatPreferenceActivity {
+    int eventId;
     /**
      * Determines whether to always show the simplified settings UI, where
      * settings are presented in a single list. When false, settings are shown
@@ -141,6 +143,9 @@ public class eventSettings extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+        Intent intent = getIntent();
+        eventId = intent.getIntExtra("id", 0);
+
     }
 
     /**
