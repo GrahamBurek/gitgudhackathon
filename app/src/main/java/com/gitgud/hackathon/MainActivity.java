@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gitgud.hackathon.database.checkLogin;
 
@@ -73,6 +74,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             String username = sharedpreferences.getString("username", "nothing");
             String password = sharedpreferences.getString("password", "nothing");
             new checkLogin(this).execute(username, password);
+
+            CharSequence text = "Welcome, " + username;
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(this, text, duration);
+            toast.show();
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
