@@ -48,19 +48,35 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mainListView = (ListView) findViewById(R.id.main_listview);
-        getEvents();
+//        mainListView = (ListView) findViewById(R.id.main_listview);
+//        getEvents();
+//
+//
+//        mArrayAdapter = new ArrayAdapter(this,
+//                android.R.layout.simple_list_item_1,
+//                eventList);
+//
+//        mainListView.setAdapter(mArrayAdapter);
 
 
-        mArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1,
-                eventList);
+        Schedule Schedule_data[] = new Schedule[]
+                {
+                        //TODO integrate database
+                        new Schedule("Calc II","8:00"),
+                        new Schedule("Calc II3","82:00"),
+                        new Schedule("Calc II4","83:00"),
+                        new Schedule("Calc II6","84:00")
+                };
 
-        mainListView.setAdapter(mArrayAdapter);
+        ScheduleAdapter adapter = new ScheduleAdapter(this,
+                R.layout.row_event, Schedule_data);
+
+
+        mainListView = (ListView)findViewById(R.id.main_listview);
+
+        mainListView.setAdapter(adapter);
         mainListView.setOnItemClickListener(this);
-
     }
-
     @Override
     protected void onResume() {
         super.onResume();
