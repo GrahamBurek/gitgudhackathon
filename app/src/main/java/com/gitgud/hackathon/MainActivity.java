@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //noinspection SimplifiableIfStatement
         switch(id) {
-            case R.id.action_settings:
-                Intent intent = new Intent(this, DisplayEventActivity.class);
+            case R.id.action_new_event:
+                Intent intent = new Intent(this, eventCreator.class);
                 startActivity(intent);
                 return true;
         }
