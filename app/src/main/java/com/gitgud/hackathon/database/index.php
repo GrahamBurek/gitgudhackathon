@@ -32,11 +32,34 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 			} else {
 				echo "Registration Error.";
 			}
+
+			mysqli_free_result($result);
 		}
 	}
 
 	if ($operation == "login") {
-		$username = $_GET['']
+
+		$username = $_GET['username'];
+		$password = $_GET['password'];
+
+		if (empty($username) || (empty($password))) {
+			echo "Make sure to fill in all fields.";
+		} else {
+			$query='SELECT username, password FROM users WHERE username="' . $username . '" AND password="' . $password . '"';
+
+			$result = mysqli_query($dbc , $query);
+
+			if (mysqli_num_rows( $result ) == 0 ) {
+				echo "Login failed, check your username and password.";
+		} else {
+			$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+			echo "Login successful " . $row['user_id'];
+
+
+		}
+		mysqli_free_result($result);
+
 	}
+}
 }
  ?>
