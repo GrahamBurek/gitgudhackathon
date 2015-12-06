@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -30,6 +31,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gitgud.hackathon.database.checkLogin;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -47,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText usernameField;
     EditText passwordField;
     TextView query_message;
+    private String username;
+    private String password;
 
     public LoginActivity(){
 
@@ -100,7 +105,12 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result){
-            query_message.setText(result);
+            String[] strings = result.split(" ");
+            SharedPreferences sharedPreferences = getSharedPreferences(checkLogin.LOGIN_PREFS,MODE_PRIVATE);
+            sharedPreferences.edit().putString("username", username).commit();
+            sharedPreferences.edit().putString("password", password).commit();
+            query_message.setText(strings[0] + " " + strings[1]);
+
         }
 
     }
@@ -117,8 +127,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View v){
-        String username = usernameField.getText().toString();
-        String password = passwordField.getText().toString();
+         username = usernameField.getText().toString();
+         password = passwordField.getText().toString();
 
         new LoginUserTask(this).execute(username,password);
     }

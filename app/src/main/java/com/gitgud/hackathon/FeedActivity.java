@@ -1,6 +1,9 @@
 package com.gitgud.hackathon;
 
 import android.app.ListActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.gitgud.hackathon.database.checkLogin;
 
 import java.util.ArrayList;
 
@@ -37,6 +42,24 @@ public class FeedActivity extends AppCompatActivity {
 
         feed_view.setAdapter(feed_adapter);
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedpreferences = getSharedPreferences(checkLogin.LOGIN_PREFS, Context.MODE_PRIVATE);
+        boolean usernameSet = sharedpreferences.contains("username");
+        boolean passwordSet = sharedpreferences.contains("password");
+
+        if (usernameSet && passwordSet) {
+            String username = sharedpreferences.getString("username", "nothing");
+            String password = sharedpreferences.getString("password", "nothing");
+            new checkLogin(this).execute(username, password);
+        } else {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+
+        }
     }
 
 }

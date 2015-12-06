@@ -1,3 +1,5 @@
+DROP DATABASE php;
+
 CREATE DATABASE IF NOT EXISTS php;
 
 USE php;
@@ -58,7 +60,7 @@ INSERT INTO events (event_name, location, start_date, end_date, repeat_interval,
 INSERT INTO events (event_name, location, start_date, end_date, repeat_interval, time) VALUES (
 "dota",
 "the jungle",
-'2000-22-05',
+'2000-5-05',
 '1822-11-14',
 "420",
 '23:00:00'
@@ -68,7 +70,7 @@ INSERT INTO events (event_name, location, start_date, end_date, repeat_interval,
 "smorc",
 "hunterville",
 '1299-01-21',
-'1772-21-22',
+'1772-2-22',
 "666",
 '15:00:00'
 );

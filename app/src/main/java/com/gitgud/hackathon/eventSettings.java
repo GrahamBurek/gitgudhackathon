@@ -3,6 +3,8 @@ package com.gitgud.hackathon;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -20,6 +22,8 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+
+import com.gitgud.hackathon.database.checkLogin;
 
 import java.util.List;
 
@@ -141,6 +145,25 @@ public class eventSettings extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedpreferences = getSharedPreferences(checkLogin.LOGIN_PREFS, Context.MODE_PRIVATE);
+        boolean usernameSet = sharedpreferences.contains("username");
+        boolean passwordSet = sharedpreferences.contains("password");
+
+        if (usernameSet && passwordSet) {
+            String username = sharedpreferences.getString("username", "nothing");
+            String password = sharedpreferences.getString("password", "nothing");
+            new checkLogin(this).execute(username, password);
+        } else {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+
+        }
     }
 
     /**

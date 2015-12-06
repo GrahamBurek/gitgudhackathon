@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 		if (empty($username) || (empty($password))) {
 			echo "Make sure to fill in all fields.";
 		} else {
-			$query='SELECT username, password FROM users WHERE username="' . $username . '" AND password="' . $password . '"';
+			$query='SELECT username, password, user_id FROM users WHERE username="' . $username . '" AND password="' . $password . '"';
 
 			$result = mysqli_query($dbc , $query);
 
