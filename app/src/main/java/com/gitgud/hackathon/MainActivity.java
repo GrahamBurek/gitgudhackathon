@@ -19,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.gitgud.hackathon.database.checkLogin;
-import com.gitgud.hackathon.database.formatTime;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,11 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,14 +48,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mainListView = (ListView) findViewById(R.id.main_listview);
-        getEvents();
+//        mainListView = (ListView) findViewById(R.id.main_listview);
+//        getEvents();
+//
+//
+//        mArrayAdapter = new ArrayAdapter(this,
+//                android.R.layout.simple_list_item_1,
+//                eventList);
+//
+//        mainListView.setAdapter(mArrayAdapter);
 
 
+        Schedule Schedule_data[] = new Schedule[]
+                {
+                        //TODO integrate database
+                        new Schedule("Calc II","8:00"),
+                        new Schedule("Calc II3","82:00"),
+                        new Schedule("Calc II4","83:00"),
+                        new Schedule("Calc II6","84:00")
+                };
 
+        ScheduleAdapter adapter = new ScheduleAdapter(this,
+                R.layout.row_event, Schedule_data);
 
     }
 
+        mainListView = (ListView)findViewById(R.id.main_listview);
+
+        mainListView.setAdapter(adapter);
+        mainListView.setOnItemClickListener(this);
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -73,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             String username = sharedpreferences.getString("username", "nothing");
             String password = sharedpreferences.getString("password", "nothing");
             new checkLogin(this).execute(username, password);
+
+            CharSequence text = "Welcome, " + username;
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(this, text, duration);
+            toast.show();
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -200,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         //GregorianCalendar gc = new GregorianCalendar();
                         //GregorianCalendar gc = new GregorianCalendar();
                         idList.add(id);
-
+                        mArrayAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -25,14 +25,16 @@ import java.util.Locale;
 
 
 
-public class eventCreator extends AppCompatActivity {
+public class EditEventActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_creator);
+        setContentView(R.layout.activity_edit_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
