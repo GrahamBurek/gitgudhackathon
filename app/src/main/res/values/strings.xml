@@ -148,4 +148,5 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_event_settings_fragment">eventSettingsFragment</string>
+    <string name="title_activity_feed">FeedActivity</string>
 </resources>
